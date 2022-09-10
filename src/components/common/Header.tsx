@@ -2,7 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Header: React.FC = () => {
+interface Props {
+  hasSubHeader?: boolean;
+}
+
+const Header: React.FC<Props> = ({ hasSubHeader = true }) => {
   return (
     <div className="text-center mt-12">
       <Link href="/">
@@ -13,7 +17,7 @@ const Header: React.FC = () => {
           height={110}
         />
       </Link>
-      <p className="text-3xl">Coupons for students</p>
+      {hasSubHeader ? <p className="text-3xl">Coupons for students</p> : null}
     </div>
   );
 };
