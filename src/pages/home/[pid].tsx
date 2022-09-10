@@ -47,7 +47,7 @@ const Coupon: NextPage = () => {
 
   useEffect(() => {
     // get coupon belonging to company
-    setCompany(company);
+    setCompany(companyData);
     setCoupons(couponsData2);
   }, []);
 
@@ -135,4 +135,5 @@ const Coupon: NextPage = () => {
     </>
   );
 };
+
 export default Coupon;

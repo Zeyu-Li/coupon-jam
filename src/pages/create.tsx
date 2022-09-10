@@ -6,7 +6,7 @@ import Header from "../components/common/Header";
 import SubmitButton from "../components/common/SubmitButton";
 import Title from "../components/common/Title";
 
-const CreateCompany: NextPage = () => {
+const CreateCoupon: NextPage = () => {
   const [description, setDescription] = useState("");
   const [expire, setExpire] = useState("");
   const [preview, setPreview] = useState();
@@ -27,7 +27,7 @@ const CreateCompany: NextPage = () => {
   };
   return (
     <>
-      <Title title="Create Company" />
+      <Title title="Create Coupon" />
       <main>
         <Header hasSubHeader={false} />
         <form className="mt-12 mb-20 flex flex-col">
@@ -58,18 +58,18 @@ const CreateCompany: NextPage = () => {
   );
 };
 
-// export async function getServerSideProps(context: any) {
-//   const session = await getSession(context);
-//   if (!session) {
-//     context.res.writeHead(302, { Location: "/user" });
-//     context.res.end();
-//     return {};
-//   }
-//   return {
-//     props: {
-//       user: session.user,
-//     },
-//   };
-// }
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+  if (!session) {
+    context.res.writeHead(302, { Location: "/user" });
+    context.res.end();
+    return {};
+  }
+  return {
+    props: {
+      user: session.user,
+    },
+  };
+}
 
-export default CreateCompany;
+export default CreateCoupon;

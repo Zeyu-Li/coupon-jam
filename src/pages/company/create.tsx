@@ -5,7 +5,7 @@ import Header from "../../components/common/Header";
 import SubmitButton from "../../components/common/SubmitButton";
 import Title from "../../components/common/Title";
 
-const Create: NextPage = () => {
+const CreateCompany: NextPage = () => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [header, setHeader] = useState("");
@@ -57,4 +57,4 @@ const Create: NextPage = () => {
     </>
   );
 };
-export default Create;
+export default CreateCompany;
