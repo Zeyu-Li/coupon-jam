@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Card from "../../components/common/Card";
 import Header from "../../components/common/Header";
+import LinkButton from "../../components/common/LinkButton";
 import LoadIcon from "../../components/common/LoadIcon";
 import Title from "../../components/common/Title";
 import { Coupons, CouponsData } from "../../components/interfaces/Coupons";
@@ -26,7 +27,8 @@ const Coupon: NextPage = () => {
     name: "Pizza Pizza",
     address: "8404 109 St NW Edmonton, AB T6G 1E2",
   };
-  const couponsData = [
+  const couponsData1 = [];
+  const couponsData2 = [
     {
       name: "Pizza Pizza",
       description: "50% off",
@@ -39,14 +41,14 @@ const Coupon: NextPage = () => {
       description: "50% off",
       isExpired: true,
       img: undefined,
-      slug: "1",
+      slug: "2",
     },
   ];
 
   useEffect(() => {
     // get coupon belonging to company
-    setCompany(companyData);
-    setCoupons(couponsData);
+    setCompany(company);
+    setCoupons(couponsData2);
   }, []);
 
   return (
@@ -54,7 +56,7 @@ const Coupon: NextPage = () => {
       {/* TODO: fetch coupon and store */}
       <Title title="Company Home" />
       <main>
-        <Header />
+        <Header hasSubHeader={false} />
         <div className="mb-20">
           {company ? (
             <div className="mt-16">
@@ -80,9 +82,9 @@ const Coupon: NextPage = () => {
           ) : (
             <LoadIcon />
           )}
-          <h2 className="text-4xl text-center mt-6 mb-12">Other Coupons</h2>
+          <h2 className="text-4xl text-center mt-6 mb-12">Your Coupons</h2>
 
-          {coupons ? (
+          {coupons?.length ? (
             coupons.map((item) => (
               <Card link={`${item.slug}`}>
                 <div className="flex flex-row items-center h-full">
@@ -110,10 +112,26 @@ const Coupon: NextPage = () => {
               </Card>
             ))
           ) : (
-            <LoadIcon />
+            <div>
+              <p className="text-center text-2xl mb-8">
+                <b>No Coupons? :(</b>
+              </p>
+              <p className="text-center text-8xl mb-8">
+                <b>🤷‍♂️</b>
+              </p>
+              <div className="w-full flex">
+                <LinkButton
+                  title="Create Coupon"
+                  to="/create"
+                  text="Create Coupon"
+                />
+              </div>
+            </div>
           )}
         </div>
       </main>
+
+      {/* floating + icon */}
     </>
   );
 };
