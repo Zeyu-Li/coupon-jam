@@ -7,7 +7,7 @@ const Custom404: NextPage = () => {
     <>
       <Title title="Page Stolen 😳" />
       <main>
-        <div className="text-center justify-center max-w-4xl text-4xl">
+        <div className="text-center justify-center max-w-4xl text-4xl m-auto">
           <h1 className="my-16">Page not found ¯\(°_o)/¯</h1>
           <LinkButton text={"Back to Home"} />
         </div>
