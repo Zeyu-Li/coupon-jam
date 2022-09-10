@@ -7,4 +7,10 @@
     font-family: Poppins, system-ui, sans-serif;
     background-color: #f3f4f6;
   }
+  @media only screen and (min-width: 600px) {
+    main {
+      max-width: 600px;
+      margin: auto;
+    }
+  }
 }

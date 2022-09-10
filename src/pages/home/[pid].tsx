@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { string } from "zod";
 import Card from "../../components/common/Card";
 import Header from "../../components/common/Header";
 import LoadIcon from "../../components/common/LoadIcon";
@@ -20,18 +19,9 @@ const Coupon: NextPage = () => {
   const router = useRouter();
   const { pid } = router.query;
 
-  const [coupon, setCoupon] = useState<CouponsData>();
   const [company, setCompany] = useState<CompanyData>();
   const [coupons, setCoupons] = useState<Coupons[]>();
 
-  const data = {
-    name: "Pizza Pizza",
-    description: "50% off",
-    isExpired: false,
-    img: undefined,
-    slug: "1",
-    code: "Iz0k8uU",
-  };
   const companyData = {
     name: "Pizza Pizza",
     address: "8404 109 St NW Edmonton, AB T6G 1E2",
@@ -54,51 +44,18 @@ const Coupon: NextPage = () => {
   ];
 
   useEffect(() => {
-    // get coupon, company and company coupon data
-    setCoupon(data);
+    // get coupon belonging to company
     setCompany(companyData);
     setCoupons(couponsData);
   }, []);
 
-  const copy = () => {
-    // copy to clipboard
-    navigator.clipboard.writeText(coupon?.code as string);
-  };
-
   return (
     <>
       {/* TODO: fetch coupon and store */}
-      <Title title={`Coupon for ${pid}`} />
+      <Title title="Company Home" />
       <main>
         <Header />
         <div className="mb-20">
-          {coupon ? (
-            <>
-              <Card>
-                <div className="flex flex-row items-center h-full">
-                  <div>
-                    <Image src={"/colored.png"} height={70} width={70} />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-semibold">{coupon.name}</h3>
-                    <p>{coupon.description}</p>
-                  </div>
-                </div>
-              </Card>
-              <div
-                onClick={copy}
-                className="mt-24 m-auto h-12 shadow-lg rounded-2xl w-3/4 p-4 bg-white relative overflow-hidden hover:bg-slate-50"
-              >
-                <div className="justify-center flex flex-row items-center h-full">
-                  <p className="text-center text-2xl">
-                    <b>{coupon.code}</b>
-                  </p>
-                </div>
-              </div>
-            </>
-          ) : (
-            <LoadIcon />
-          )}
           {company ? (
             <div className="mt-16">
               <Card>
