@@ -64,23 +64,22 @@ model VerificationToken {
 }
 
 model Coupon {
-  slug        String   @id @default(cuid())
+  slug        String    @id @default(cuid())
   description String
   expiry      DateTime?
   code        String
   header      String?
-  created     DateTime @default(now())
+  created     DateTime  @default(now())
 
   // isExpired   Boolean  @default(false)
-  Store     Store?  @relation(fields: [storeName], references: [name])
-  storeName String?
-//   @@index(slug)
+  Store     Store  @relation(fields: [storeName], references: [name])
+  storeName String
 }
 
 model Store {
   name    String   @id @default(cuid())
   address String
-  header  String
+  header  String?
   created DateTime @default(now())
   coupons Coupon[]
   // isExpired Boolean  @default(false)
