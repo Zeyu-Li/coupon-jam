@@ -36,6 +36,7 @@ const createCoupon = async (req: NextApiRequest, res: NextApiResponse) => {
       description: description,
       code: code,
       storeId: store.id,
+      storeName: store.name,
       // User: session.user
     },
   });

@@ -73,8 +73,9 @@ model Coupon {
   created     DateTime  @default(now())
 
   // isExpired   Boolean  @default(false)
-  store     Store  @relation(fields: [storeId], references: [id])
+  store     Store  @relation(fields: [storeId, storeName], references: [id, name])
   storeId String
+  storeName String
 }
 
 model Store {
@@ -87,4 +88,5 @@ model Store {
   // isExpired Boolean  @default(false)
   User    User     @relation(fields: [userId], references: [id])
   userId  String  @unique
+  @@unique([id, name])
 }
