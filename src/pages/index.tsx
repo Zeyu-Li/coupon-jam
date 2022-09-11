@@ -7,13 +7,9 @@ import Header from "../components/common/Header";
 import LoadIcon from "../components/common/LoadIcon";
 import Title from "../components/common/Title";
 import { Coupons } from "../components/interfaces/Coupons";
+import CONSTANTS from "../components/constants/constants";
 
-interface PageProps {
-  host: null | string;
-}
-type Props = { host: string | null };
-
-const Home: NextPage<PageProps> = ({ host }) => {
+const Home: NextPage = () => {
   const [coupons, setCoupons] = useState<Coupons[]>();
   const [ocoupons, setOCoupons] = useState<Coupons[]>([]);
   const [search, setSearch] = useState("");
@@ -21,8 +17,7 @@ const Home: NextPage<PageProps> = ({ host }) => {
   useEffect(() => {
     const fetchData = async () => {
       // set fetch here
-      if (!host) return;
-      const res = await fetch(`${host}api/getcoupons`);
+      const res = await fetch(`${CONSTANTS.DEFAULT_BASE_URL}/api/getcoupons`);
       let fetchedData: Coupons[] = await res.json();
 
       // check if < 3
@@ -110,7 +105,6 @@ const Home: NextPage<PageProps> = ({ host }) => {
             </button>
           </div>
         </div>
-
         <div className="mt-24 mb-12">
           {coupons ? (
             coupons.map((item) => {
@@ -171,9 +165,5 @@ const Home: NextPage<PageProps> = ({ host }) => {
     </>
   );
 };
-
-export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => ({
-  props: { host: ctx.req.headers.referer || null },
-});
 
 export default Home;
