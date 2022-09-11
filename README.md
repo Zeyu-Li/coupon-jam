@@ -1,6 +1,6 @@
 # Coupon
 
-![favicon](./public/headericon.png)]
+![favicon](./public/headericon.png)
 
 ## For students
 
