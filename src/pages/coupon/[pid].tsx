@@ -179,7 +179,7 @@ const Coupon: NextPage = () => {
 
           {coupons ? (
             coupons.map((item) => (
-              <Card link={`${item.slug}`} key={item.slug}>
+              <Card link={`${item.isExpired ? "" : item.slug}`} key={item.slug}>
                 <div className="flex flex-row items-center h-full">
                   <div>
                     {!item.isExpired ? (
