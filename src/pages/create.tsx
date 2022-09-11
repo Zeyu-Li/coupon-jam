@@ -14,11 +14,6 @@ const CreateCoupon: NextPage = () => {
   const [preview, setPreview] = useState();
   const router = useRouter();
 
-  useEffect(() => {
-    // fetch if company exists
-    return;
-  }, []);
-
   const submit = async (e: any) => {
     e.preventDefault();
     // submit to database
