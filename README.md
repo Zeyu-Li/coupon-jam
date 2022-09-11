@@ -1,10 +1,12 @@
 # Coupon
 
-![favicon](./public/headericon.png)
+[![favicon](./public/headericon.png)](https://coupons.andrewli.site/)
 
 ## For students
 
 Coupon is a mobile first app that allows students to find coupons for their favorite stores. It also allows stores to create and manage coupons.
+
+Check it out now @ [coupons.andrewli.site](https://coupons.andrewli.site/)
 
 ## Snapshots
 
