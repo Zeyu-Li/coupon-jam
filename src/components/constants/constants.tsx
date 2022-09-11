@@ -3,7 +3,7 @@ const DEFAULT_DESCRIPTION =
   "A mobile first student discount coupon finding app";
 // localhost default
 // const DEFAULT_BASE_URL = "http://localhost:3000"; //"https://coupon-jam.vercel.app"
-const DEFAULT_BASE_URL = "https://coupon-jam.vercel.app";
+const DEFAULT_BASE_URL = "https://coupons.andrewli.site";
 
 const CONSTANTS = {
   DEFAULT_TITLE: DEFAULT_TITLE,
