@@ -8,6 +8,7 @@ interface Coupons {
 
 interface CouponsData extends Coupons {
   code: string;
+  storeId: string;
 }
 
 export type { Coupons, CouponsData };

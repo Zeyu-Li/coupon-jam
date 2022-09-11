@@ -5,9 +5,9 @@ const readCoupon = async (req: NextApiRequest, res: NextApiResponse) => {
     const { slug } = req.body;
     const coupon = await prisma.coupon.findUnique({
         where: {
-            slug: slug,
+          slug: String(slug),
         },
-    });
+      })
     res.status(200).json(coupon);
 };
 
