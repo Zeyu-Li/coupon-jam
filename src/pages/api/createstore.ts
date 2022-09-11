@@ -22,9 +22,15 @@ const createStore = async (req: NextApiRequest, res: NextApiResponse) => {
   // };
   const user = await prisma.user.findUnique({
     where: {
-      email: session.user.email,
+      email: session?.user?.email,
     },
   });
+
+  if (!user) {
+    res.writeHead(302, { Location: "/login" });
+    res.end();
+    return {};
+  }
   const store = await prisma.store.create({
     data: {
       name: name,

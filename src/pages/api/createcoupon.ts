@@ -22,7 +22,7 @@ const createCoupon = async (req: NextApiRequest, res: NextApiResponse) => {
   // };
   const store = await prisma.store.findUnique({
     where: {
-      userId: session.user.id,
+      userId: session?.user?.id,
     },
   });
   const coupon = await prisma.coupon.create({

@@ -120,6 +120,7 @@ const Coupon: NextPage = () => {
                         href={`https://www.google.com/maps/search/${companyData.address
                           .split(" ")
                           .join("+")}`}
+                        rel="noreferrer"
                         target="_blank"
                       >
                         <Image src={"/map.png"} height={50} width={50} />
@@ -136,7 +137,7 @@ const Coupon: NextPage = () => {
 
           {coupons ? (
             coupons.map((item) => (
-              <Card link={`${item.slug}`}>
+              <Card link={`${item.slug}`} key={item.slug}>
                 <div className="flex flex-row items-center h-full">
                   <div>
                     {!item.isExpired ? (
