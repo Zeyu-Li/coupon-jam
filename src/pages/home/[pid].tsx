@@ -83,6 +83,7 @@ const Coupon: NextPage = () => {
                           .split(" ")
                           .join("+")}`}
                         target="_blank"
+                        rel="noreferrer"
                       >
                         <Image src={"/map.png"} height={50} width={50} />
                       </a>
@@ -102,6 +103,7 @@ const Coupon: NextPage = () => {
                 link={`${item.slug}`}
                 onRemove={removeItem}
                 slug={item.slug}
+                key={item.slug}
               >
                 <div className="flex flex-row items-center h-full">
                   <div>
@@ -113,7 +115,7 @@ const Coupon: NextPage = () => {
                   </div>
                   <div>
                     <h3 className="text-2xl font-semibold">
-                      {item.name}
+                      {item.storeName}
                       {item.isExpired ? " (Expired)" : ""}
                     </h3>
                     <p

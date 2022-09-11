@@ -110,7 +110,7 @@ const Home: NextPage = () => {
             coupons.map((item) => {
               if (item.storeName === "UNIQUEPROMOTION") {
                 return (
-                  <Link passHref={false} href={"/login"}>
+                  <Link passHref={false} href={"/login"} key={item.slug}>
                     <div className="mt-8 flex items-center justify-center text-center m-auto h-32 shadow-lg rounded-2xl w-3/4 p-4 bg-primary text-white relative overflow-hidden">
                       <p className="text-3xl font-bold align-middle">
                         Promote your <br /> Store here
@@ -120,7 +120,10 @@ const Home: NextPage = () => {
                 );
               } else {
                 return (
-                  <a href={item.isExpired ? "" : `coupon/${item.slug}`}>
+                  <a
+                    href={item.isExpired ? "" : `coupon/${item.slug}`}
+                    key={item.slug}
+                  >
                     <Card>
                       <div className="flex flex-row items-center h-full">
                         <div>
