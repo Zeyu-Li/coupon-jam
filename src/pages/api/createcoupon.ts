@@ -10,7 +10,7 @@ const createCoupon = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const session = await getSession({ req });
   console.log(session);
-  if (!session) {
+  if (!session?.user?.id) {
     res.writeHead(302, { Location: "/login" });
     res.end();
     return {};
@@ -22,9 +22,15 @@ const createCoupon = async (req: NextApiRequest, res: NextApiResponse) => {
   // };
   const store = await prisma.store.findUnique({
     where: {
-      userId: session?.user?.id,
+      userId: session.user.id,
     },
   });
+
+  if (!store) {
+    res.writeHead(302, { Location: "/login" });
+    res.end();
+    return {};
+  }
   const coupon = await prisma.coupon.create({
     data: {
       description: description,
