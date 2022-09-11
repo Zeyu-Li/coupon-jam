@@ -6,3 +6,6 @@ migrate:
 
 primsa:
 	npx prisma studio
+
+init:
+	yarn && yarn dev

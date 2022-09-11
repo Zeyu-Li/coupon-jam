@@ -1,13 +1,13 @@
 interface Coupons {
-  name: String;
-  description: String;
+  name: string;
+  description: string;
   isExpired: boolean;
-  slug: String;
-  img?: String;
+  slug: string;
+  img?: string;
 }
 
 interface CouponsData extends Coupons {
-  code: String;
+  code: string;
 }
 
 export type { Coupons, CouponsData };

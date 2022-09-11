@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Card from "../../components/common/Card";
+import CardRemovable from "../../components/common/CardRemovable";
 import Header from "../../components/common/Header";
 import LinkButton from "../../components/common/LinkButton";
 import LoadIcon from "../../components/common/LoadIcon";
@@ -51,6 +52,10 @@ const Coupon: NextPage = () => {
     setCoupons(couponsData2);
   }, []);
 
+  const removeItem = (slug: string) => {
+    console.log(slug);
+  };
+
   return (
     <>
       {/* TODO: fetch coupon and store */}
@@ -86,7 +91,11 @@ const Coupon: NextPage = () => {
 
           {coupons?.length ? (
             coupons.map((item) => (
-              <Card link={`${item.slug}`}>
+              <CardRemovable
+                link={`${item.slug}`}
+                onRemove={removeItem}
+                slug={item.slug}
+              >
                 <div className="flex flex-row items-center h-full">
                   <div>
                     {!item.isExpired ? (
@@ -109,7 +118,7 @@ const Coupon: NextPage = () => {
                     </p>
                   </div>
                 </div>
-              </Card>
+              </CardRemovable>
             ))
           ) : (
             <div>
