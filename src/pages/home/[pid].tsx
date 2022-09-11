@@ -60,8 +60,8 @@ const Coupon: NextPage = () => {
           body: JSON.stringify({ storeId: pid }),
         }
       );
-      let fetchedData: Coupons[] = await res.json();
-      console.log(fetchedData);
+      const fetchedData: Coupons[] = await res.json();
+      // console.log(fetchedData);
       setCoupons(fetchedData);
     };
     fetchData();
@@ -74,10 +74,10 @@ const Coupon: NextPage = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ slug }),
     });
-    let postData: any = await res.json();
+    const postData: any = await res.json();
 
     if (postData) {
-      console.log(postData);
+      alert("Refresh page to see changes");
     }
   };
 
