@@ -1,23 +1,14 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import Header from "../components/common/Header";
 import SubmitButton from "../components/common/SubmitButton";
 
 export default function Home() {
   const { data: session } = useSession();
+  const router = useRouter();
   if (session) {
-    return (
-      <div>
-        <Header hasSubHeader={false} />
-        <div className="flex items-center v-full justify-center mt-24">
-          <SubmitButton
-            title="Sign out"
-            text="Sign out"
-            onClick={() => signOut()}
-          />
-        </div>
-      </div>
-    );
+    router.push("/company/create");
   }
   return (
     <div>
