@@ -12,6 +12,7 @@ const SubmitButton: React.FC<Props> = ({ onClick, title, text }) => {
     <button
       type="submit"
       onClick={onClick}
+      title={title}
       className=" mb-8 text-3xl transition-all text-white bg-blue-800 rounded-full py-3.5 px-12 m-4 hover:bg-blue-600 font-bold "
     >
       <p className="font-bold">{text}</p>

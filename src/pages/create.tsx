@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/common/Header";
 import SubmitButton from "../components/common/SubmitButton";
 import Title from "../components/common/Title";
+import CONSTANTS from "../components/constants/constants";
 
 const CreateCoupon: NextPage = () => {
   const [description, setDescription] = useState("");
@@ -21,22 +22,23 @@ const CreateCoupon: NextPage = () => {
   const submit = async (e: any) => {
     e.preventDefault();
     // submit to database
-    const body = {description, code};
+    const body = { description, code };
     try {
-      const response = await fetch("http://localhost:3000/api/createcoupon", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        `${CONSTANTS.DEFAULT_BASE_URL}/api/createcoupon`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       if (response.status !== 200) {
         console.log("ERROR");
         console.log(response);
       }
+    } catch (error) {
+      console.log("other error", error);
     }
-    catch (error) {
-      console.log("other error",error);
-    }
-    
 
     const pid = "1";
 
@@ -85,7 +87,7 @@ const CreateCoupon: NextPage = () => {
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
   if (!session) {
-    context.res.writeHead(302, { Location: "/user" });
+    context.res.writeHead(302, { Location: "/login" });
     context.res.end();
     return {};
   }

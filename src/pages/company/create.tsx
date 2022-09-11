@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "../../components/common/Header";
 import SubmitButton from "../../components/common/SubmitButton";
 import Title from "../../components/common/Title";
+import CONSTANTS from "../../components/constants/constants";
 
 const CreateCompany: NextPage = () => {
   const [name, setName] = useState("");
@@ -19,23 +20,23 @@ const CreateCompany: NextPage = () => {
   const submit = async (e: any) => {
     e.preventDefault();
     // submit to database
-    const body = {name, address};
+    const body = { name, address };
     try {
-      const response = await fetch("http://localhost:3000/api/createstore", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        `${CONSTANTS.DEFAULT_BASE_URL}/api/createstore`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       if (response.status !== 200) {
         console.log("ERROR");
         console.log(response);
       }
+    } catch (error) {
+      console.log("other error", error);
     }
-    catch (error) {
-      console.log("other error",error);
-    }
-    
-
 
     const pid = "1";
 

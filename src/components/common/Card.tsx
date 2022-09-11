@@ -9,7 +9,7 @@ interface Props {
 const Card: React.FC<Props> = ({ children, link }) => {
   if (link) {
     return (
-      <Link href={link}>
+      <Link href={link} passHref>
         <div className="mt-8 m-auto h-32 shadow-lg rounded-2xl w-3/4 p-4 bg-white relative overflow-hidden hover:bg-slate-50">
           {children}
         </div>
