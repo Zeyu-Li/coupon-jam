@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -8,50 +8,55 @@ import LoadIcon from "../components/common/LoadIcon";
 import Title from "../components/common/Title";
 import { Coupons } from "../components/interfaces/Coupons";
 
-const Home: NextPage = () => {
+interface PageProps {
+  host: null | string;
+}
+type Props = { host: string | null };
+
+const Home: NextPage<PageProps> = ({ host }) => {
   const [coupons, setCoupons] = useState<Coupons[]>();
   const [ocoupons, setOCoupons] = useState<Coupons[]>([]);
   const [search, setSearch] = useState("");
 
-  const data = [
-    {
-      name: "Pizza Pizza",
-      description: "50% off",
-      isExpired: false,
-      img: undefined,
-      slug: "1",
-    },
-    {
-      name: "Pizza Pizza",
-      description: "50% off",
-      isExpired: true,
-      img: undefined,
-      slug: "2",
-    },
-  ];
-
   useEffect(() => {
-    // set fetch here
-    let fetchedData: Coupons[] = data;
+    const fetchData = async () => {
+      // set fetch here
+      if (!host) return;
+      const res = await fetch(`${host}api/getcoupons`);
+      let fetchedData: Coupons[] = await res.json();
 
-    // check if <3
-    if (fetchedData.length < 3) {
-      fetchedData.splice(2, 0, {
-        name: "UNIQUEPROMOTION",
-        description: "",
-        isExpired: false,
-        slug: "1",
-      });
-    } else {
-      fetchedData.push({
-        name: "UNIQUEPROMOTION",
-        description: "",
-        isExpired: false,
-        slug: "1",
-      });
-    }
-    setOCoupons(fetchedData);
-    setCoupons(fetchedData);
+      // check if < 3
+      if (fetchedData.length < 3) {
+        fetchedData.splice(2, 0, {
+          storeName: "UNIQUEPROMOTION",
+          description: "",
+          isExpired: false,
+          slug: "1",
+        });
+      } else {
+        if (fetchedData.length == 0) {
+          fetchedData = [
+            {
+              storeName: "UNIQUEPROMOTION",
+              description: "",
+              isExpired: false,
+              slug: "1",
+            },
+          ];
+        } else {
+          fetchedData.push({
+            storeName: "UNIQUEPROMOTION",
+            description: "",
+            isExpired: false,
+            slug: "1",
+          });
+        }
+      }
+      setOCoupons(fetchedData);
+      setCoupons(fetchedData);
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -59,7 +64,9 @@ const Home: NextPage = () => {
     setCoupons(
       ocoupons.filter(
         (item) =>
-          item.name.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1
+          item.storeName
+            .toLocaleLowerCase()
+            .indexOf(search.toLocaleLowerCase()) > -1
       )
     );
   }, [search]);
@@ -107,7 +114,7 @@ const Home: NextPage = () => {
         <div className="mt-24 mb-12">
           {coupons ? (
             coupons.map((item) => {
-              if (item.name === "UNIQUEPROMOTION") {
+              if (item.storeName === "UNIQUEPROMOTION") {
                 return (
                   <Link passHref={false} href={"/login"}>
                     <div className="mt-8 flex items-center justify-center text-center m-auto h-32 shadow-lg rounded-2xl w-3/4 p-4 bg-primary text-white relative overflow-hidden">
@@ -119,30 +126,40 @@ const Home: NextPage = () => {
                 );
               } else {
                 return (
-                  <Card link={item.isExpired ? "" : `coupon/${item.slug}`}>
-                    <div className="flex flex-row items-center h-full">
-                      <div>
-                        {!item.isExpired ? (
-                          <Image src={"/colored.png"} height={70} width={70} />
-                        ) : (
-                          <Image src={"/grayout.png"} height={70} width={70} />
-                        )}
+                  <a href={item.isExpired ? "" : `coupon/${item.slug}`}>
+                    <Card>
+                      <div className="flex flex-row items-center h-full">
+                        <div>
+                          {!item.isExpired ? (
+                            <Image
+                              src={"/colored.png"}
+                              height={70}
+                              width={70}
+                            />
+                          ) : (
+                            <Image
+                              src={"/grayout.png"}
+                              height={70}
+                              width={70}
+                            />
+                          )}
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-semibold">
+                            {item.storeName}
+                            {item.isExpired ? " (Expired)" : ""}
+                          </h3>
+                          <p
+                            className={`${
+                              item.isExpired ? "line-through text-red-500" : ""
+                            } `}
+                          >
+                            {item.description}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-2xl font-semibold">
-                          {item.name}
-                          {item.isExpired ? " (Expired)" : ""}
-                        </h3>
-                        <p
-                          className={`${
-                            item.isExpired ? "line-through text-red-500" : ""
-                          } `}
-                        >
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </a>
                 );
               }
             })
@@ -154,5 +171,9 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => ({
+  props: { host: ctx.req.headers.referer || null },
+});
 
 export default Home;

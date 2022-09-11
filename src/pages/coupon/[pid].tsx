@@ -25,7 +25,7 @@ const Coupon: NextPage = () => {
   const [coupons, setCoupons] = useState<Coupons[]>();
 
   const data = {
-    name: "Pizza Pizza",
+    storeName: "Pizza Pizza",
     description: "50% off",
     isExpired: false,
     img: undefined,
@@ -38,14 +38,14 @@ const Coupon: NextPage = () => {
   };
   const couponsData = [
     {
-      name: "Pizza Pizza",
+      storeName: "Pizza Pizza",
       description: "50% off",
       isExpired: false,
       img: undefined,
       slug: "1",
     },
     {
-      name: "Pizza Pizza",
+      storeName: "Pizza Pizza",
       description: "50% off",
       isExpired: true,
       img: undefined,
@@ -80,7 +80,9 @@ const Coupon: NextPage = () => {
                     <Image src={"/colored.png"} height={70} width={70} />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold">{coupon.name}</h3>
+                    <h3 className="text-2xl font-semibold">
+                      {coupon.storeName}
+                    </h3>
                     <p>{coupon.description}</p>
                   </div>
                 </div>
@@ -138,7 +140,7 @@ const Coupon: NextPage = () => {
                   </div>
                   <div>
                     <h3 className="text-2xl font-semibold">
-                      {item.name}
+                      {item.storeName}
                       {item.isExpired ? " (Expired)" : ""}
                     </h3>
                     <p
