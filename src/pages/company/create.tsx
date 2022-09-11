@@ -19,7 +19,7 @@ const CreateCompany: NextPage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
-      let fetchedData: any = await res.json();
+      const fetchedData: any = await res.json();
 
       if (fetchedData?.id) {
         router.push(`/home/${fetchedData.id}`);
