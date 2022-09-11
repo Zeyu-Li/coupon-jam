@@ -1,5 +1,5 @@
 interface Coupons {
-  name: string;
+  storeName: string;
   description: string;
   isExpired: boolean;
   slug: string;
