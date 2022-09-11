@@ -14,7 +14,18 @@ const CreateCompany: NextPage = () => {
 
   useEffect(() => {
     // fetch if company exists
-    return;
+    const fetchData = async () => {
+      const res = await fetch(`${CONSTANTS.DEFAULT_BASE_URL}/api/getstore`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      let fetchedData: any = await res.json();
+
+      if (fetchedData?.id) {
+        router.push(`/home/${fetchedData.id}`);
+      }
+    };
+    fetchData();
   }, []);
 
   const submit = async (e: any) => {

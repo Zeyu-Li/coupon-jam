@@ -9,6 +9,7 @@ import Header from "../../components/common/Header";
 import LinkButton from "../../components/common/LinkButton";
 import LoadIcon from "../../components/common/LoadIcon";
 import Title from "../../components/common/Title";
+import CONSTANTS from "../../components/constants/constants";
 import { Coupons, CouponsData } from "../../components/interfaces/Coupons";
 
 interface CompanyData {
@@ -47,13 +48,37 @@ const Coupon: NextPage = () => {
   ];
 
   useEffect(() => {
-    // get coupon belonging to company
     setCompany(companyData);
-    setCoupons(couponsData2);
+
+    // get coupon belonging to company
+    const fetchData = async () => {
+      const res = await fetch(
+        `${CONSTANTS.DEFAULT_BASE_URL}/api/getcouponbystore`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ storeId: pid }),
+        }
+      );
+      let fetchedData: Coupons[] = await res.json();
+      console.log(fetchedData);
+      setCoupons(fetchedData);
+    };
+    fetchData();
   }, []);
 
-  const removeItem = (slug: string) => {
-    console.log(slug);
+  const removeItem = async (slug: string) => {
+    // remove coupon from database
+    const res = await fetch(`${CONSTANTS.DEFAULT_BASE_URL}/api/deletecoupon`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ slug }),
+    });
+    let postData: any = await res.json();
+
+    if (postData) {
+      console.log(postData);
+    }
   };
 
   return (
@@ -151,9 +176,9 @@ const Coupon: NextPage = () => {
 
       {/* floating + icon */}
       <div>
-        <div className="absolute bottom-0 right-0">
+        <div className="">
           <Link href={"/create"} title={"Create Coupon"}>
-            <button className="text-center m-auto m-8 text-3xl transition-all text-white bg-blue-800 rounded-full p-4 px-6  hover:bg-blue-600 font-bold">
+            <button className=" fixed float-right bottom-0 right-0 m-8 text-3xl transition-all text-white bg-blue-800 rounded-full p-4 px-6  hover:bg-blue-600 font-bold">
               +
             </button>
           </Link>

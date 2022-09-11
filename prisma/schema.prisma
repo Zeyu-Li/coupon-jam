@@ -72,7 +72,7 @@ model Coupon {
   // header      String?
   created     DateTime  @default(now())
 
-  // isExpired   Boolean  @default(false)
+  isExpired   Boolean  @default(false)
   store     Store  @relation(fields: [storeId, storeName], references: [id, name])
   storeId String
   storeName String
