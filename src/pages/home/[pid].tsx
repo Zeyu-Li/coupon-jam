@@ -128,7 +128,7 @@ const Coupon: NextPage = () => {
               <p className="text-center text-8xl mb-8">
                 <b>🤷‍♂️</b>
               </p>
-              <div className="w-full flex">
+              <div className="w-full right">
                 <LinkButton
                   title="Create Coupon"
                   to="/create"
@@ -136,11 +136,21 @@ const Coupon: NextPage = () => {
                 />
               </div>
             </div>
+            
           )}
         </div>
       </main>
 
       {/* floating + icon */}
+      <div>
+      <div className="w-40 float-right">
+                <LinkButton
+                  title="Create Coupon"
+                  to="/create"
+                  text="+"
+                />
+              </div>
+            </div> 
     </>
   );
 };
