@@ -65,7 +65,7 @@ model VerificationToken {
 }
 
 model Coupon {
-  slug        String    @id @default(cuid())
+  slug        String    @id @default(cuid()) @unique
   description String
   // expiry      DateTime?
   code        String
@@ -79,7 +79,7 @@ model Coupon {
 }
 
 model Store {
-  id      String  @id @default(cuid())
+  id      String  @id @default(cuid()) @unique
   name    String
   address String
   // header  String?
