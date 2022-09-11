@@ -21,6 +21,6 @@ export default defineNextConfig({
     defaultLocale: "en",
   },
   eslint: {
-    ignoreBuildErrors: true,
+    ignoreDuringBuilds: true,
   },
 });
