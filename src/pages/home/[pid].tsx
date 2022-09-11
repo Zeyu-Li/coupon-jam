@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,6 +9,7 @@ import CardRemovable from "../../components/common/CardRemovable";
 import Header from "../../components/common/Header";
 import LinkButton from "../../components/common/LinkButton";
 import LoadIcon from "../../components/common/LoadIcon";
+import SubmitButton from "../../components/common/SubmitButton";
 import Title from "../../components/common/Title";
 import CONSTANTS from "../../components/constants/constants";
 import { Coupons, CouponsData } from "../../components/interfaces/Coupons";
@@ -25,30 +27,28 @@ const Coupon: NextPage = () => {
   const [company, setCompany] = useState<CompanyData>();
   const [coupons, setCoupons] = useState<Coupons[]>();
 
-  const companyData = {
-    name: "Pizza Pizza",
-    address: "8404 109 St NW Edmonton, AB T6G 1E2",
+  const fetchCompany = async () => {
+    // set fetch here
+    try {
+      const body = {
+        id: pid,
+      };
+      const res = await fetch(`${CONSTANTS.DEFAULT_BASE_URL}/api/readstore`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify(body),
+      });
+      const fetchedData = await res.json();
+      setCompany(fetchedData);
+    } catch (err) {
+      console.log(err);
+    }
   };
-  const couponsData1 = [];
-  const couponsData2 = [
-    {
-      name: "Pizza Pizza",
-      description: "50% off",
-      isExpired: false,
-      img: undefined,
-      slug: "1",
-    },
-    {
-      name: "Pizza Pizza",
-      description: "50% off",
-      isExpired: true,
-      img: undefined,
-      slug: "2",
-    },
-  ];
 
   useEffect(() => {
-    setCompany(companyData);
+    fetchCompany();
 
     // get coupon belonging to company
     const fetchData = async () => {
@@ -99,12 +99,12 @@ const Coupon: NextPage = () => {
                   ) : null}
                   <div>
                     <h3 className="text-2xl font-semibold text-center">
-                      {companyData.name}
+                      {company.name}
                     </h3>
                     <div className="flex flex-row">
-                      <p className="max-w-[70%]">{companyData.address}</p>
+                      <p className="max-w-[70%]">{company.address}</p>
                       <a
-                        href={`https://www.google.com/maps/search/${companyData.address
+                        href={`https://www.google.com/maps/search/${company.address
                           .split(" ")
                           .join("+")}`}
                         target="_blank"
@@ -120,6 +120,13 @@ const Coupon: NextPage = () => {
           ) : (
             <LoadIcon />
           )}
+          <div className="flex items-center v-full justify-center">
+            <SubmitButton
+              title="Sign out"
+              text="Sign out"
+              onClick={() => signOut()}
+            />
+          </div>
           <h2 className="text-4xl text-center mt-6 mb-12">Your Coupons</h2>
 
           {coupons?.length ? (
