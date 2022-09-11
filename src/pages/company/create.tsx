@@ -16,9 +16,26 @@ const CreateCompany: NextPage = () => {
     return;
   }, []);
 
-  const submit = (e: any) => {
+  const submit = async (e: any) => {
     e.preventDefault();
     // submit to database
+    const body = {name, address};
+    try {
+      const response = await fetch("http://localhost:3000/api/createstore", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (response.status !== 200) {
+        console.log("ERROR");
+        console.log(response);
+      }
+    }
+    catch (error) {
+      console.log("other error",error);
+    }
+    
+
 
     const pid = "1";
 

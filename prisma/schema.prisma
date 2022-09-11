@@ -48,11 +48,12 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String   @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Store         Store[]
 }
 
 model VerificationToken {
@@ -66,21 +67,24 @@ model VerificationToken {
 model Coupon {
   slug        String    @id @default(cuid())
   description String
-  expiry      DateTime?
+  // expiry      DateTime?
   code        String
-  header      String?
+  // header      String?
   created     DateTime  @default(now())
 
   // isExpired   Boolean  @default(false)
-  Store     Store  @relation(fields: [storeName], references: [name])
-  storeName String
+  store     Store  @relation(fields: [storeId], references: [id])
+  storeId String
 }
 
 model Store {
-  name    String   @id @default(cuid())
+  id      String  @id @default(cuid())
+  name    String
   address String
-  header  String?
+  // header  String?
   created DateTime @default(now())
   coupons Coupon[]
   // isExpired Boolean  @default(false)
+  User    User     @relation(fields: [userId], references: [id])
+  userId  String  @unique
 }
