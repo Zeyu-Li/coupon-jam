@@ -27,11 +27,11 @@ const Coupon: NextPage = () => {
   const [company, setCompany] = useState<CompanyData>();
   const [coupons, setCoupons] = useState<Coupons[]>();
 
-  const fetchCompany = async () => {
+  const fetchCompany = async (storeId: string) => {
     // set fetch here
     try {
       const body = {
-        id: pid,
+        id: storeId,
       };
       const res = await fetch(`${CONSTANTS.DEFAULT_BASE_URL}/api/readstore`, {
         method: "POST",
@@ -47,25 +47,33 @@ const Coupon: NextPage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchCompany();
-
-    // get coupon belonging to company
-    const fetchData = async () => {
+  const fetchCompanyCoupons = async (storeId: string) => {
+    // set fetch here
+    try {
+      const body = {
+        storeId: storeId,
+      };
       const res = await fetch(
-        `${CONSTANTS.DEFAULT_BASE_URL}/api/getcouponbystore`,
+        `${CONSTANTS.DEFAULT_BASE_URL}/api/companycoupons`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ storeId: pid }),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify(body),
         }
       );
-      const fetchedData: Coupons[] = await res.json();
-      // console.log(fetchedData);
+      const fetchedData = await res.json();
       setCoupons(fetchedData);
-    };
-    fetchData();
-  }, []);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCompany(pid);
+    fetchCompanyCoupons(pid);
+  }, [pid]);
 
   const removeItem = async (slug: string) => {
     // remove coupon from database
@@ -132,7 +140,7 @@ const Coupon: NextPage = () => {
           {coupons?.length ? (
             coupons.map((item) => (
               <CardRemovable
-                link={`${item.slug}`}
+                link={`${item.isExpired ? "" : "/coupon/"+String(item.slug)}`}
                 onRemove={removeItem}
                 slug={item.slug}
                 key={item.slug}

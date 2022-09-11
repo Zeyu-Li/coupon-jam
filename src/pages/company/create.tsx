@@ -49,9 +49,20 @@ const CreateCompany: NextPage = () => {
       console.log("other error", error);
     }
 
-    const pid = "1";
+    const res = await fetch(`${CONSTANTS.DEFAULT_BASE_URL}/api/getstore`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+    const fetchedstore: any = await res.json();
+    // console.log("################################");
+    // console.log(fetchedstore);
 
-    router.push(`/home/${pid}`);
+    if (fetchedstore?.id) {
+      router.push(`/home/${fetchedstore.id}`);
+    }
+    else {
+      router.push(`/login`);
+    }
   };
 
   return (
