@@ -8,6 +8,7 @@ import Title from "../components/common/Title";
 
 const CreateCoupon: NextPage = () => {
   const [description, setDescription] = useState("");
+  const [code, setCode] = useState("");
   const [expire, setExpire] = useState("");
   const [preview, setPreview] = useState();
   const router = useRouter();
@@ -35,19 +36,26 @@ const CreateCoupon: NextPage = () => {
             type="text"
             id="rounded-email"
             className="m-auto rounded-lg border-transparent appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            placeholder="Company Name*"
+            placeholder="Coupon description*"
             onChange={(e) => setDescription(e.target.value)}
           />
           <input
             type="text"
             id="rounded-email"
-            className="m-auto mt-10 rounded-lg border-transparent appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            placeholder="Address*"
-            onChange={(e) => setExpire(e.target.value)}
+            className="m-auto rounded-lg border-transparent appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            placeholder="Coupon Code*"
+            onChange={(e) => setCode(e.target.value)}
           />
+          {/* <input
+            type="text"
+            id="rounded-email"
+            className="m-auto mt-10 rounded-lg border-transparent appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            placeholder="Expiry Date*"
+            onChange={(e) => setExpire(e.target.value)}
+          /> */}
           <div className="mt-12 m-auto ">
             <SubmitButton
-              title="Submit company"
+              title="Submit description"
               onClick={submit}
               text="Submit"
             />
