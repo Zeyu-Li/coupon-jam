@@ -116,7 +116,14 @@ const Coupon: NextPage = () => {
                     </h3>
                     <div className="flex flex-row">
                       <p className="max-w-[70%]">{companyData.address}</p>
-                      <Image src={"/map.png"} height={50} width={50} />
+                      <a
+                        href={`https://www.google.com/maps/search/${companyData.address
+                          .split(" ")
+                          .join("+")}`}
+                        target="_blank"
+                      >
+                        <Image src={"/map.png"} height={50} width={50} />
+                      </a>
                     </div>
                   </div>
                 </div>
