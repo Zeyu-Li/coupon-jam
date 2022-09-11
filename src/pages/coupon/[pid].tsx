@@ -9,12 +9,16 @@ import Header from "../../components/common/Header";
 import LoadIcon from "../../components/common/LoadIcon";
 import Title from "../../components/common/Title";
 import { Coupons, CouponsData } from "../../components/interfaces/Coupons";
+import CONSTANTS from "../../components/constants/constants";
+
 
 interface CompanyData {
   name: string;
   address: string;
   header?: string;
 }
+
+
 
 const Coupon: NextPage = () => {
   const router = useRouter();
@@ -24,46 +28,117 @@ const Coupon: NextPage = () => {
   const [company, setCompany] = useState<CompanyData>();
   const [coupons, setCoupons] = useState<Coupons[]>();
 
-  const data = {
-    storeName: "Pizza Pizza",
-    description: "50% off",
-    isExpired: false,
-    img: undefined,
-    slug: "1",
-    code: "Iz0k8uU",
+  const fetchCoupon = async () => {
+    // set fetch here
+    try {
+    const body = {
+      slug: pid,
+    }
+    const res = await fetch(`${CONSTANTS.DEFAULT_BASE_URL}/api/readcoupon`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(body),
+    });
+    // console.log(res);
+    const fetchedData = await res.json();
+    // console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+    // console.log(fetchedData);
+    setCoupon(fetchedData);
+  } catch (err) {
+    console.log(err);
+  }
+  
+  // setCompany(companyData);
+  // setCoupons(couponsData);
   };
+
+  const fetchCompany = async (storeId) => {
+    // set fetch here
+    try {
+    const body = {
+      id: storeId,
+    }
+    const res = await fetch(`${CONSTANTS.DEFAULT_BASE_URL}/api/readstore`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(body),
+    });
+    // console.log(res);
+    const fetchedData = await res.json();
+    // console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+    // console.log(fetchedData);
+    setCompany(fetchedData);
+  } catch (err) {
+    console.log(err);
+  }
+  
+  // setCompany(companyData);
+  // setCoupons(couponsData);
+  };
+
+  const fetchCompanyCoupons = async (storeId: string) => {
+    // set fetch here
+    try {
+    const body = {
+      storeId: storeId,
+    }
+    const res = await fetch(`${CONSTANTS.DEFAULT_BASE_URL}/api/companycoupons`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(body),
+    });
+    // console.log(res);
+    const fetchedData = await res.json();
+    // console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+    // console.log(fetchedData);
+    setCoupons(fetchedData);
+  } catch (err) {
+    console.log(err);
+  }
+  
+  // setCompany(companyData);
+  // setCoupons(couponsData);
+  };
+
+
+
   const companyData = {
     name: "Pizza Pizza",
     address: "8404 109 St NW Edmonton, AB T6G 1E2",
   };
-  const couponsData = [
-    {
-      storeName: "Pizza Pizza",
-      description: "50% off",
-      isExpired: false,
-      img: undefined,
-      slug: "1",
-    },
-    {
-      storeName: "Pizza Pizza",
-      description: "50% off",
-      isExpired: true,
-      img: undefined,
-      slug: "1",
-    },
-  ];
+
 
   useEffect(() => {
-    // get coupon, company and company coupon data
-    setCoupon(data);
-    setCompany(companyData);
-    setCoupons(couponsData);
-  }, []);
+
+    fetchCoupon();
+
+
+  }, [ pid ]);
+
+  useEffect(() => {
+
+    if (!coupon) {
+      return;
+    }
+
+    const storeId = coupon.storeId;
+
+    fetchCompany(storeId);
+    fetchCompanyCoupons(storeId);
+
+  }, [ coupon ]);
 
   const copy = () => {
     // copy to clipboard
     navigator.clipboard.writeText(coupon?.code as string);
   };
+
 
   return (
     <>
