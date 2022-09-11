@@ -1,4 +1,22 @@
-# Create T3 App
+# Coupon
+
+![favicon](./public/headericon.png)]
+
+## For students
+
+Coupon is a mobile first app that allows students to find coupons for their favorite stores. It also allows stores to create and manage coupons.
+
+## Snapshots
+
+![snapshot](./img/preview1.png)
+
+![snapshot](./img/preview2.png)
+
+![snapshot](./img/preview3.png)
+
+---
+
+## Documentation
 
 This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
 
