@@ -21,7 +21,7 @@ const Home: NextPage = () => {
       let fetchedData: Coupons[] = await res.json();
 
       // check if < 3
-      if (fetchedData.length < 3) {
+      if (fetchedData.length > 3) {
         fetchedData.splice(2, 0, {
           storeName: "UNIQUEPROMOTION",
           description: "",
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           slug: "1",
         });
       } else {
-        if (fetchedData.length == 0) {
+        if (fetchedData.length === 0) {
           fetchedData = [
             {
               storeName: "UNIQUEPROMOTION",
