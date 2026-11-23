@@ -102,7 +102,7 @@ const Coupon: NextPage = () => {
                 <div className="flex flex-row items-center h-full">
                   {company.header ? (
                     <div>
-                      <Image src={company.header} height={70} width={"100%"} />
+                      <Image src={company.header} alt="" height={70} width={0} sizes="100vw" style={{ width: "100%", height: 70 }} />
                     </div>
                   ) : null}
                   <div>
@@ -118,7 +118,7 @@ const Coupon: NextPage = () => {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <Image src={"/map.png"} height={50} width={50} />
+                        <Image className="inline-block align-baseline" src={"/map.png"} alt="Open in Google Maps" height={50} width={50} />
                       </a>
                     </div>
                   </div>
@@ -148,9 +148,9 @@ const Coupon: NextPage = () => {
                 <div className="flex flex-row items-center h-full">
                   <div>
                     {!item.isExpired ? (
-                      <Image src={"/colored.png"} height={70} width={70} />
+                      <Image className="inline-block align-baseline" src={"/colored.png"} alt="" height={70} width={70} />
                     ) : (
-                      <Image src={"/grayout.png"} height={70} width={70} />
+                      <Image className="inline-block align-baseline" src={"/grayout.png"} alt="" height={70} width={70} />
                     )}
                   </div>
                   <div>

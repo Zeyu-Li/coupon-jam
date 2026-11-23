@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
-import { getSession } from "next-auth/react";
+import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 
 const createStore = async (req: NextApiRequest, res: NextApiResponse) => {
   // console.log("Hello");
@@ -8,8 +8,7 @@ const createStore = async (req: NextApiRequest, res: NextApiResponse) => {
   // console.log("goodbye");
   const { name, address } = req.body;
 
-  const session = await getSession({ req });
-  console.log(session);
+  const session = await getServerAuthSession({ req, res });
   if (!session) {
     res.writeHead(302, { Location: "/login" });
     res.end();

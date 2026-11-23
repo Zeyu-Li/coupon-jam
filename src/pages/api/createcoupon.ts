@@ -1,43 +1,29 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { z } from "zod";
 import { prisma } from "../../server/db/client";
-import { getSession } from "next-auth/react";
+import { requireOwnStore } from "../../server/common/require-own-store";
+
+const bodySchema = z.object({
+  description: z.string(),
+  code: z.string(),
+});
 
 const createCoupon = async (req: NextApiRequest, res: NextApiResponse) => {
-  // console.log("Hello");
-  // console.log(req.body);
-  // console.log("goodbye");
-  const { description, code } = req.body;
+  const store = await requireOwnStore(req, res);
+  if (!store) return;
 
-  const session = await getSession({ req });
-  console.log(session);
-  if (!session?.user?.id) {
-    res.writeHead(302, { Location: "/login" });
-    res.end();
-    return {};
+  const body = bodySchema.safeParse(req.body);
+  if (!body.success) {
+    res.status(400).json({ error: "Invalid coupon" });
+    return;
   }
-  // return {
-  //   props: {
-  //     user: session.user,
-  //   },
-  // };
-  const store = await prisma.store.findUnique({
-    where: {
-      userId: session.user.id,
-    },
-  });
 
-  if (!store) {
-    res.writeHead(302, { Location: "/login" });
-    res.end();
-    return {};
-  }
   const coupon = await prisma.coupon.create({
     data: {
-      description: description,
-      code: code,
+      description: body.data.description,
+      code: body.data.code,
       storeId: store.id,
       storeName: store.name,
-      // User: session.user
     },
   });
   res.status(200).json(coupon);
