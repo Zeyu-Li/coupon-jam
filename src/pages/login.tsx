@@ -20,10 +20,11 @@ export default function Home() {
           className="mb-8 inline text-3xl transition-all text-white bg-white rounded-lg py-3.5 px-6 m-4 hover:bg-white font-bold shadow-xl"
         >
           <Image
+            className="inline-block align-baseline"
             src={"/google.png"}
+            alt="Google"
             height={32}
             width={32}
-            className="inline-block align-middle pt-10"
           />
           <p className="font-bold pb-12 text-black inline px-12">Sign in</p>
         </button>

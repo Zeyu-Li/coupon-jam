@@ -129,13 +129,17 @@ const Home: NextPage = () => {
                         <div>
                           {!item.isExpired ? (
                             <Image
+                              className="inline-block align-baseline"
                               src={"/colored.png"}
+                              alt=""
                               height={70}
                               width={70}
                             />
                           ) : (
                             <Image
+                              className="inline-block align-baseline"
                               src={"/grayout.png"}
+                              alt=""
                               height={70}
                               width={70}
                             />

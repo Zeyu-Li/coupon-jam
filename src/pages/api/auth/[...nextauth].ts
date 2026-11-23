@@ -5,7 +5,6 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../server/db/client";
 import { env } from "../../../env/server.mjs";
-import { debug } from "console";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
@@ -31,7 +30,8 @@ export const authOptions: NextAuthOptions = {
     // ...add more providers here
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  debug: true,
+  // Debug logs include session tokens and OAuth responses, so keep them out of production logs.
+  debug: env.NODE_ENV === "development",
   // pages: {
   //   signIn: '/auth/signin',
   //   signOut: '/auth/signout',

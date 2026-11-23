@@ -60,21 +60,21 @@ const CreateCoupon: NextPage = () => {
           <input
             type="text"
             id="rounded-email"
-            className="m-auto rounded-lg border-transparent appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="m-auto rounded-lg appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="Coupon description*"
             onChange={(e) => setDescription(e.target.value)}
           />
           <input
             type="text"
             id="rounded-email"
-            className="m-auto mt-10 rounded-lg border-transparent appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="m-auto mt-10 rounded-lg appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="Coupon Code*"
             onChange={(e) => setCode(e.target.value)}
           />
           {/* <input
             type="text"
             id="rounded-email"
-            className="m-auto mt-10 rounded-lg border-transparent appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="m-auto mt-10 rounded-lg appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="Expiry Date*"
             onChange={(e) => setExpire(e.target.value)}
           /> */}

@@ -15,6 +15,7 @@ const Header: React.FC<Props> = ({ hasSubHeader = true }) => {
           src={"/headericon.png"}
           width={279}
           height={110}
+          className="inline-block align-baseline"
         />
       </Link>
       {hasSubHeader ? <p className="text-3xl">Coupons for students</p> : null}
